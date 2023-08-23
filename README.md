@@ -1,2 +1,7 @@
 # ft_transcendence
-... later
+
+- [ ] Backend
+- [ ] Frontend
+- [ ] Chat
+- [ ] Game
+
