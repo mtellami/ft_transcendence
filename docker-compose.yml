@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgresql:
+    container_name: postgresql
+    build: ./database
+    image: database:42
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    env_file:
+      - .env
+    restart: always
+
+volumes:
+  database:
