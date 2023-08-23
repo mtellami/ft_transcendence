@@ -1,2 +1,0 @@
-GRANT ALL PRIVILEGES ON DATABASE tranc TO mtellami;
-

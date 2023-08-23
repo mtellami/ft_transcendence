@@ -1,10 +1,9 @@
 version: '3'
 
 services:
-  postgresql:
+  db:
     container_name: postgresql
-    build: ./database
-    image: database:42
+    image: postgres
     ports:
       - 5432:5432
     volumes:
