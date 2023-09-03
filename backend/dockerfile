@@ -4,11 +4,11 @@ RUN mkdir -p /usr/src/app/backend
 
 WORKDIR /usr/src/app/backend
 
-COPY package*.json ./
+COPY ./srcs/package*.json ./
 RUN npm install
 
-COPY src/* ./
+COPY srcs/* ./
 
-EXPOSE 8000
+EXPOSE 3000
 
 CMD ["npm", "start"]
