@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     container_name: database
-    image: postgresql:1337
+    image: postgres
     ports:
       - 5432:5432
     networks:
