@@ -19,13 +19,23 @@ services:
     image: nestjs:1337
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     ports:
       - 3000:3000
     networks:
       - transcendence
-    env_file:
-      - .env
+    restart: always
+
+  frontend:
+    container_name: frontend
+    image: reactjs:1337
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    ports:
+      - 4000:4000
+    networks:
+      - transcendence
     restart: always
 
 volumes:

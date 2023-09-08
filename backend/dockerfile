@@ -4,10 +4,10 @@ RUN mkdir -p /usr/src/app/backend
 
 WORKDIR /usr/src/app/backend
 
-COPY ./srcs/package*.json ./
+COPY ./package*.json ./
 RUN npm install
 
-COPY srcs/* ./
+COPY ./* ./
 
 EXPOSE 3000
 
