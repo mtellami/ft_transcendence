@@ -10,5 +10,5 @@ ps :
 	@docker volume ls && echo
 	@docker network ls && echo
 
-# clean : down
-	# docker rmi $$(docker images -q)
+clean : down
+	docker rmi $$(docker images -q)

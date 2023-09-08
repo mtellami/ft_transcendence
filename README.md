@@ -23,4 +23,3 @@
 ### Two
 - Pages (Request)
 - Endpoints (API)
-
