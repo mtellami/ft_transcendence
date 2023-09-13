@@ -1,0 +1,17 @@
+button {
+	background-color: cyan;
+	color: white;
+	font-size: 2rem;
+	padding: 15px;
+	border-radius: 15px;
+	position: absolute;
+	top: 40%;
+	left: 42%;
+	transition: 0.3s ease;
+	border: none;
+	cursor: pointer;
+}
+
+button:hover {
+	transform: scale(1.1);
+}
