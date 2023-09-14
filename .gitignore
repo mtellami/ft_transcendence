@@ -1,2 +1,4 @@
 */node_modules/
-*/.env/
+frontend/.env
+backend/.env
+backend/dist

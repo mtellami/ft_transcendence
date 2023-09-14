@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Query, Res } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Post, Query, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 
@@ -12,5 +12,10 @@ export class AuthController {
       throw new BadRequestException('Missing authentication code query');
     }
 		this.authService.login(code, res)
+	}
+
+	@Post('/validate')
+	validate(@Req() req: Request) {
+		this.authService.validateToken(req)
 	}
 }
