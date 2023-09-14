@@ -1,5 +1,5 @@
 button {
-	background-color: cyan;
+	background-color: #004958;
 	color: white;
 	font-size: 2rem;
 	padding: 15px;
@@ -7,11 +7,11 @@ button {
 	position: absolute;
 	top: 40%;
 	left: 42%;
-	transition: 0.3s ease;
+	transition: 0.7s ease;
 	border: none;
 	cursor: pointer;
 }
 
 button:hover {
-	transform: scale(1.1);
+	background-color: #008080;
 }

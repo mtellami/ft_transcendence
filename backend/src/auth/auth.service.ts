@@ -1,10 +1,11 @@
-import { ForbiddenException, HttpException, HttpStatus, Injectable, Req, Res } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, Injectable, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
+import { JwtService } from 'src/jwt/jwt.service';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
-	constructor(private readonly userService: UserService) {}
+	constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
 
 	// Get User Access Token (42.AUTH)
 	async accessToken(code: string | any) {
@@ -59,28 +60,20 @@ export class AuthService {
 		const token = await this.accessToken(code)
 		if (!token) {
 			res.redirect(`${process.env.FRONTEND_URL}/login`)
-			return 
+			throw new UnauthorizedException('Unauthorized')
 		}
 		const user = await this.accessAuthUserInfo(token.access_token)
-		const authUser = await this.userService.findUserByEmail(user.email)
+		let authUser = await this.userService.findUserByEmail(user.email)
 		if (!authUser) {
 			await this.userService.createUser({
 				username: user.login,
 				email: user.email,
 				avatar: user.image.link
 			})
+			authUser = await this.userService.findUserByEmail(user.email)
 		}
-
-		res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=1234567`)
+		const access_token = this.jwtService.generateToken(authUser)
+		res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=${access_token}`)
 	}
 
-	// Validate access token
-	validateToken(@Req() req: Request) {
-		const authorization = req.headers['authorization']
-		if (!authorization) {
-			throw new HttpException('Bad Request - Missing Authorization token', HttpStatus.BAD_REQUEST);
-		}
-		const token = authorization.split(' ')[1]
-		// check if there is a user with associated token
-	}
 }

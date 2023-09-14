@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Post, Query, Req, Res } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 
@@ -14,8 +14,5 @@ export class AuthController {
 		this.authService.login(code, res)
 	}
 
-	@Post('/validate')
-	validate(@Req() req: Request) {
-		this.authService.validateToken(req)
-	}
+	
 }

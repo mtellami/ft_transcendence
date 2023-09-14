@@ -5,44 +5,52 @@ import { useEffect, useState } from 'react';
 
 function Home() {
 	const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined)
+	const [data, setData] = useState<any | null>(undefined)
 
 	useEffect(() => {
 		async function validateAuth() {
 			const token = Cookies.get('tranc_token')
 			if (token) {
 				try {
-					const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/validate`, {
+					const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
 						method: 'POST',
 						headers: { 'Authorization': `Bearer ${token}` },
 					})
 					if (response.ok) {
 						setIsAuth(true)
+						const user = await response.json()
+						setData(user)
 					} else {
-						setIsAuth(false)
+						throw new Error('Unauthorized')
 					}
 				} catch (error) {
 					setIsAuth(false)
+					setData(null)
 				}
 			} else {
 				setIsAuth(false)
+				setData(null)
 			}
 		}
 		validateAuth()
 	}, [])
 
-	if (isAuth === undefined) {
+	if (isAuth === undefined || data === undefined) {
 		return (
 			<>
 				<h1>Loading ...</h1>
 			</>
 		)
-	} else if (isAuth) {
+	} else if (isAuth && data) {
 		return (
-			<>
-				<h1>Welcome to Home Page</h1>
-			</>
+			<div className='container'>
+				<h1 className='name'>{data.username}</h1>
+				<img className='avatar' src={`${data.avatar}`} />
+			</div>
 		)
 	} else {
+		if (Cookies.get('tranc_token'))
+			Cookies.remove('tranc_token')
 		return <Navigate to='/login'/>
 	}
 }

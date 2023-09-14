@@ -16,7 +16,7 @@ function Login() {
 
   return (
     <>
-			<button onClick={auth42Api}>Login with intra42</button>
+			<button onClick={auth42Api}>Login with 42 intra</button>
     </>
   ) 
 }
