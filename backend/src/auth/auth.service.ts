@@ -75,5 +75,4 @@ export class AuthService {
 		const access_token = this.jwtService.generateToken(authUser)
 		res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=${access_token}`)
 	}
-
 }

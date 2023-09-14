@@ -1,6 +1,5 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken'
-
 
 @Injectable()
 export class JwtService {
@@ -14,7 +13,7 @@ export class JwtService {
 		try {
     	return jwt.verify(token, this.secretKey);
     } catch (error) {
-			throw new UnauthorizedException('Unauthorized: invalid access token')
+			throw new HttpException('Unauthorized - invalid access token', HttpStatus.UNAUTHORIZED)
     }
 	}
 }

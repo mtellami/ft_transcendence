@@ -39,5 +39,4 @@ export class UserService {
 		const user = this.jwtService.verifyToken(token)
 		return user
 	}
-
 }

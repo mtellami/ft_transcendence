@@ -10,7 +10,7 @@ function Home() {
 	useEffect(() => {
 		async function validateAuth() {
 			const token = Cookies.get('tranc_token')
-			if (token) {
+			if (token !== undefined) {
 				try {
 					const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
 						method: 'POST',

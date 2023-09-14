@@ -7,7 +7,9 @@ function Auth() {
 
   const token = queryParams.get('tranc_token')
   if (token) {
-		Cookies.set('tranc_token', token, { expires: 1 })
+		if (Cookies.get('tranc_token') === undefined) {
+			Cookies.set('tranc_token', token)
+		}
     return <Navigate to='/' />
   } else {
     return <Navigate to='/login' />
