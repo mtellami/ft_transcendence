@@ -1,0 +1,21 @@
+@import '../../component/Layout/Layout.css';
+
+:root {
+  --bg: #0E172A;
+  --bgp: #1C2236;
+	--color: #E6E7EB;
+	--cyan: #107EA2;
+}
+
+.notFound {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background-color: var(--bg);
+	height: 100vh;
+	width: 100vw;
+	color: var(--color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 10rem;
+	font-size: 3rem;
+}

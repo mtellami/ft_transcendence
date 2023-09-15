@@ -14,5 +14,4 @@ export class AuthController {
 		this.authService.login(code, res)
 	}
 
-	
 }

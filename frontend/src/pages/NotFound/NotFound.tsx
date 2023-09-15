@@ -1,9 +1,11 @@
+import './NotFound.css'
 
 function NotFound () {
 	return (
-		<h1>
-			Page Not Found
-		</h1>
+		<div className='layout notFound'>
+			<h1>404</h1>
+			<h3>page not found</h3>
+		</div>
 	)
 }
 

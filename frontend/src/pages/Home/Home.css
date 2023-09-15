@@ -1,17 +1,16 @@
+@import '../../component/Layout/Layout.css';
+
 .container {
-	position: absolute;
-	top: 40%;
-	left: 35%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
   align-items: center;
 	background-color: #000033;
 	height: 200px;
 	width: 500px;
-	border-radius: 30px;
 }
 
 .avatar {
+	margin-left: 3rem;
 	height: 150px;
 	border-radius: 50%;
 }

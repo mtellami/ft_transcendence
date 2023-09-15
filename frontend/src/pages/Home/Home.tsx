@@ -1,7 +1,8 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
 import './Home.css'
-import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie'
+import { useEffect, useState } from 'react'
+import Loading from '../../component/Loading/Loading'
 
 function Home() {
 	const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined)
@@ -9,7 +10,7 @@ function Home() {
 
 	useEffect(() => {
 		async function validateAuth() {
-			const token = Cookies.get('tranc_token')
+			const token = Cookies.get(`${import.meta.env.VITE_TOKEN_COOKIE}`)
 			if (token !== undefined) {
 				try {
 					const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
@@ -36,21 +37,17 @@ function Home() {
 	}, [])
 
 	if (isAuth === undefined || data === undefined) {
-		return (
-			<>
-				<h1>Loading ...</h1>
-			</>
-		)
+		return (<Loading />)
 	} else if (isAuth && data) {
 		return (
-			<div className='container'>
+			<div className='layout container'>
 				<h1 className='name'>{data.username}</h1>
 				<img className='avatar' src={`${data.avatar}`} />
 			</div>
 		)
 	} else {
-		if (Cookies.get('tranc_token'))
-			Cookies.remove('tranc_token')
+		if (Cookies.get(`${import.meta.env.VITE_TOKEN_COOKIE}`) !== undefined)
+			Cookies.remove(`${import.meta.env.VITE_TOKEN_COOKIE}`)
 		return <Navigate to='/login'/>
 	}
 }
