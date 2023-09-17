@@ -19,7 +19,7 @@ function Login() {
 				<p>Welcome to PonGame</p>
 				<button onClick={auth42Api}>
 					<img src='src/assets/intra.png' alt='42-icon' />
-					<span>Login with intra</span>
+					<span>Login with intranet</span>
 				</button>
 			</div>
     </div>

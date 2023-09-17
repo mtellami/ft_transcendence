@@ -1,9 +1,11 @@
+import Navbar from '../../components/Navbar/Navbar'
 import './Profile.css'
 
-function Profile () {
+function Profile ({ user }: any) {
 	return (
 		<div className='layout'>
-			<h1>User Profile</h1>
+			<Navbar user={user} />
+			<h1>User Profile viewed by {user.username}</h1>
 		</div>
 	)
 }

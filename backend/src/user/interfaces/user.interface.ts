@@ -1,4 +1,6 @@
 export class User {
-	username: string
-	avatar: string
+	id: number;
+	username: String;
+	email: String;
+	avatar: String;
 }

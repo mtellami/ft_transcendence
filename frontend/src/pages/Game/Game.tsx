@@ -1,9 +1,11 @@
-import '../../component/Layout/Layout.css'
+import '../../styles//Layout.css'
+import Navbar from '../../components/Navbar/Navbar'
 
-function Game () {
+function Game ({ user }: any) {
 	return (
 		<div className="layout">
-			<h1>Ping Pong Game</h1>
+			<Navbar user={user} />
+			<h1>Lets play {user.username}, its Ping Pong Game</h1>
 		</div>
 	)
 }

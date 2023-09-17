@@ -1,13 +1,13 @@
 import '../../styles/Layout.css'
 import Navbar from '../../components/Navbar/Navbar'
 
-function Chat ({ user }: any) {
+function Setting ({ user }: any) {
 	return (
-		<div className="layout">
+		<div className='layout'>
 			<Navbar user={user} />
-			<h1>This is your Chat Room {user.username}</h1>
+			<h1>Change your Setting {user.username} </h1>
 		</div>
 	)
 }
 
-export default Chat
+export default Setting

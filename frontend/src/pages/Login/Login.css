@@ -1,4 +1,4 @@
-@import '../../component/Layout/Layout.css';
+@import '../../styles/Layout.css';
 
 :root {
   --bg: #0E172A;
@@ -21,7 +21,7 @@
 	background-color: var(--bgp);
 	height: 40vh;
 	width: 40vw;
-	border-radius: 1.5rem;
+	border-radius: 1rem;
 	box-shadow: var(--shadow);
 	display: flex;
 	flex-direction: column;

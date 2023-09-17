@@ -1,6 +1,7 @@
 import { ForbiddenException, HttpException, HttpStatus, Injectable, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { JwtService } from 'src/jwt/jwt.service';
+import { User } from 'src/user/interfaces/user.interface';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -62,17 +63,24 @@ export class AuthService {
 			res.redirect(`${process.env.FRONTEND_URL}/login`)
 			throw new UnauthorizedException('Unauthorized')
 		}
-		const user = await this.accessAuthUserInfo(token.access_token)
-		let authUser = await this.userService.findUserByEmail(user.email)
-		if (!authUser) {
-			await this.userService.createUser({
-				username: user.login,
-				email: user.email,
-				avatar: user.image.link
+		try {
+			const user = await this.accessAuthUserInfo(token.access_token)
+			let authUser = await this.userService.findUserByEmail(user.email)
+			if (!authUser) {
+				await this.userService.createUser({
+					username: user.login,
+					email: user.email,
+					avatar: user.image.link
+				})
+				authUser = await this.userService.findUserByEmail(user.email)
+			}
+			const access_token = this.jwtService.generateToken({
+				id: authUser.id,
+				email: authUser.email,
 			})
-			authUser = await this.userService.findUserByEmail(user.email)
+			res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=${access_token}`)
+		} catch (error) {
+			res.redirect(`${process.env.FRONTEND_URL}/login`)
 		}
-		const access_token = this.jwtService.generateToken(authUser)
-		res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=${access_token}`)
 	}
 }

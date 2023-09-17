@@ -1,16 +1,7 @@
-@import '../../component/Layout/Layout.css';
+@import '../../styles/Layout.css';
 
 .container {
-	display: flex;
-	justify-content: center;
-  align-items: center;
 	background-color: #000033;
 	height: 200px;
 	width: 500px;
-}
-
-.avatar {
-	margin-left: 3rem;
-	height: 150px;
-	border-radius: 50%;
 }

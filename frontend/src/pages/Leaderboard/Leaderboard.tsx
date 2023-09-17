@@ -1,9 +1,9 @@
 import './Leaderboard.css'
 
-function Leaderboard () {
+function Leaderboard ({ user }: any) {
 	return (
 		<div className='layout'>
-			<h1>Leaderboard list</h1>
+			<h1>Leaderboard list, where are you ${user.username}</h1>
 		</div>
 	)
 }
