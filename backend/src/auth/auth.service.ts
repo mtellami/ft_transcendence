@@ -1,12 +1,14 @@
 import { ForbiddenException, HttpException, HttpStatus, Injectable, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
-import { JwtService } from 'src/jwt/jwt.service';
-import { User } from 'src/user/interfaces/user.interface';
-import { UserService } from 'src/user/user.service';
+import { JwtService } from 'src/services/jwt.service';
+import { PrismaService } from 'src/services/prisma.service';
 
 @Injectable()
 export class AuthService {
-	constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
+	constructor(
+		private readonly jwtService: JwtService,
+		private readonly prismaService: PrismaService,
+	) {}
 
 	// Get User Access Token (42.AUTH)
 	async accessToken(code: string | any) {
@@ -37,6 +39,7 @@ export class AuthService {
 			return null
     }
 	}
+
 	// Get User Information (42.AUTH)
 	async accessAuthUserInfo(accessToken: string) {    
     try {
@@ -65,14 +68,14 @@ export class AuthService {
 		}
 		try {
 			const user = await this.accessAuthUserInfo(token.access_token)
-			let authUser = await this.userService.findUserByEmail(user.email)
+			let authUser = await this.prismaService.findUserByEmail(user.email)
 			if (!authUser) {
-				await this.userService.createUser({
+				await this.prismaService.createUser({
 					username: user.login,
 					email: user.email,
 					avatar: user.image.link
 				})
-				authUser = await this.userService.findUserByEmail(user.email)
+				authUser = await this.prismaService.findUserByEmail(user.email)
 			}
 			const access_token = this.jwtService.generateToken({
 				id: authUser.id,
@@ -81,6 +84,21 @@ export class AuthService {
 			res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=${access_token}`)
 		} catch (error) {
 			res.redirect(`${process.env.FRONTEND_URL}/login`)
+		}
+	}
+
+	// Authenticate logged user 
+	async authenticate(@Req() req: Request) {
+		const authorization = req.headers['authorization']
+		if (!authorization) {
+			throw new HttpException('Bad Request - Missing Authorization token', HttpStatus.BAD_REQUEST);
+		}
+		const token = authorization.split(' ')[1]
+		const user = this.jwtService.verifyToken(token)
+		const us = await this.prismaService.findUserByEmail(user.email)
+		return {
+			username: us.username,
+			avatar: us.avatar,
 		}
 	}
 }

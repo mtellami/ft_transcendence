@@ -14,7 +14,7 @@ function Guard( Component: React.FC ) {
 				if (token === undefined) {
 					throw new Error('Unauthorized')
 				}
-				const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
+				const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
 					headers: { 'Authorization': `Bearer ${token}` },
 				})
 				if (response.ok) {
