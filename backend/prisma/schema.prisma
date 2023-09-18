@@ -9,7 +9,7 @@ datasource db {
 
 model User {
 	id				Int		  @default(autoincrement())
-	username 	String 
+	username 	String 	@unique
 	email			String  @unique
 	avatar 		String 
 	friends		Int[]

@@ -1,4 +1,4 @@
-import { ForbiddenException, HttpException, HttpStatus, Injectable, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { JwtService } from 'src/services/jwt.service';
 import { PrismaService } from 'src/services/prisma.service';
@@ -51,7 +51,7 @@ export class AuthService {
         const data = await response.json()
         return data;
       } else {
-				throw new ForbiddenException()
+				throw new UnauthorizedException('Unauthorized')
 			}
     }
     catch(error) {
@@ -68,18 +68,18 @@ export class AuthService {
 		}
 		try {
 			const user = await this.accessAuthUserInfo(token.access_token)
-			let authUser = await this.prismaService.findUserByEmail(user.email)
+			let authUser = await this.prismaService.findUserByUsername(user.login)
 			if (!authUser) {
 				await this.prismaService.createUser({
 					username: user.login,
 					email: user.email,
 					avatar: user.image.link
 				})
-				authUser = await this.prismaService.findUserByEmail(user.email)
+				authUser = await this.prismaService.findUserByUsername(user.login)
 			}
 			const access_token = this.jwtService.generateToken({
 				id: authUser.id,
-				email: authUser.email,
+				username: authUser.username,
 			})
 			res.redirect(`${process.env.FRONTEND_URL}/auth?tranc_token=${access_token}`)
 		} catch (error) {
@@ -89,16 +89,15 @@ export class AuthService {
 
 	// Authenticate logged user 
 	async authenticate(@Req() req: Request) {
-		const authorization = req.headers['authorization']
-		if (!authorization) {
-			throw new HttpException('Bad Request - Missing Authorization token', HttpStatus.BAD_REQUEST);
-		}
-		const token = authorization.split(' ')[1]
-		const user = this.jwtService.verifyToken(token)
-		const us = await this.prismaService.findUserByEmail(user.email)
+		const token = this.jwtService.extractToken(req)
+		if(!token) {
+				throw new UnauthorizedException('Unauthorized')
+		} 
+		const data = this.jwtService.verifyToken(token)
+		const user = await this.prismaService.findUserByUsername(data.username)
 		return {
-			username: us.username,
-			avatar: us.avatar,
+			username: user.username,
+			avatar: user.avatar,
 		}
 	}
 }

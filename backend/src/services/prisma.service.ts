@@ -1,16 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaClient, User } from '@prisma/client';
 import { UserCreateDto } from 'src/user/dto/user.create.dto';
+import prisma from './client.prisma';
 
 @Injectable()
 export class PrismaService {
 
-	async findUserByEmail(userEmail: string): Promise<User> {
-		const prisma = new PrismaClient()
+	async findUserByUsername(username: string) {
 		try {
 			const getUser = await prisma.user.findUnique({
     		where: {
-    	  	email: userEmail,
+    	  	username: username,
     		},
 			})
 			return getUser
@@ -21,8 +20,6 @@ export class PrismaService {
 	}
 
 	async createUser(user: UserCreateDto) {
-		const prisma = new PrismaClient()
-
 		try {
 			await prisma.user.create({
 				data: {

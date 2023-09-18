@@ -46,9 +46,12 @@
 }
 
 .menu {
+	background-color: #1C2236;
+	width: 200px;
 	position: absolute;
 	height: 120px;
-	top: 100px;
+	top: 80px;
+	right: -10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -58,7 +61,11 @@
 	opacity: 0;
 }
 
+.menu li:hover {
+	transform: translateX(-10px);
+}
+
 .show {
-	transform: translateX(0);
+	transform: translateX(20px);
 	opacity: 1;
 }
