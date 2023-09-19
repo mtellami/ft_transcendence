@@ -10,8 +10,11 @@ datasource db {
 model User {
 	id				Int		  @default(autoincrement())
 	username 	String 	@unique
-	email			String  @unique
 	avatar 		String 
 	friends		Int[]
+	blocks		Int[]
+	games	 		Int?	 @default(0)
+	wins 	 		Int?   @default(0)
+	score 		Int?   @default(0)
 	online 		Boolean @default(false)
 }

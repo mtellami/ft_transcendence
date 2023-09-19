@@ -1,48 +1,46 @@
+import './Profile.css'
 import { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import './Profile.css'
 import Loading from '../../components/Loading/Loading'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
-import Cookies from 'js-cookie'
+import { fetchUser } from '../../utils/fetchUser'
+import { fetchProfile } from '../../utils/fetchProfile'
 
-function Profile ({ user }: any) {
-	const [userProfile, setUserProfile] = useState<any | null>(undefined)
+function Profile () {
+	const [user, setUser] = useState<any>(undefined)
+	const [profile, setProfile] = useState<any>(undefined)
 	const { username } = useParams()
 
 	useEffect(() => {
 		const fetchUserProfile = async () => {
-			const token = Cookies.get(`${import.meta.env.VITE_TOKEN_COOKIE}`)
-			if (token === undefined) {
-				setUserProfile(null)
-				return
-			}
-			const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/${username}`, {
-				headers: { 'Authorization': `Bearer ${token}` },
-			})
-			if (response.ok) {
-				const data = await response.json()
-				setUserProfile(data)
+			const _user = await fetchUser()
+			if (!_user) {
+				setUser(null)
+				setProfile(null)
 			} else {
-				setUserProfile(null)
+				setUser(_user)
+				const _profile = await fetchProfile(username)
+				setProfile(_profile)
 			}
 		}
 		fetchUserProfile()
 	}, [username])
 
-	if (userProfile === undefined) {
+	if (user === null) {
+		return <Navigate to="/login" />
+	} else if (profile === undefined) {
 		return <Loading />
-	} else if (userProfile) {
+	} else if (profile) {
 		return (
 			<div className='layout'>
 				<Navbar user={user} />
 				<div className='profile'>
-					<h1> ID: {userProfile.id}</h1>
-					<h1> USERNAME: {userProfile.username}</h1>
-					<h1> EMAIL: {userProfile.email}</h1>
-					<h1> AVATAR URL: {userProfile.avatar}</h1>
-					<h1> FRIENDS: {userProfile.friends}</h1>
-					<h1> ONLINE: {userProfile.online.toString()}</h1>
+					<h1> ID: {profile.id}</h1>
+					<h1> USERNAME: {profile.username}</h1>
+					<h1> AVATAR URL: {profile.avatar}</h1>
+					<h1> FRIENDS: {profile.friends}</h1>
+					<h1> ONLINE: {profile.online.toString()}</h1>
 				</div>
 			</div>
 		)

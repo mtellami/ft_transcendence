@@ -1,6 +1,5 @@
-import { BadRequestException, Controller, Get, Query, Req, Res } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -11,12 +10,12 @@ export class AuthController {
 		return this.authService.authenticate(req)
 	}
 
-	@Get('/callback')
-	login(@Query('code') code: string, @Res() res: Response) {
+	@Get('/login')
+	login(@Query('code') code: string) {
 		if (code === undefined) {
       throw new BadRequestException('Missing authentication code query');
     }
-		this.authService.login(code, res)
+		return this.authService.login(code)
 	}
 	
 }

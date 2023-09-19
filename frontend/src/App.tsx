@@ -9,20 +9,19 @@ import Chat from './pages/Chat/Chat'
 import Profile from './pages/Profile/Profile'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
 import Setting from './pages/Setting/Setting'
-import Guard from './components/Guard/Guard'
 
 function App() {
 	return (
 		<Routes>
-			<Route path='/' element={Guard(Home)}></Route>
-			<Route path='login' Component={Login}></Route>
-			<Route path='auth' Component={Auth}></Route>
-			<Route path='game' element={Guard(Game)}></Route>
-			<Route path='chat' element={Guard(Chat)}></Route>
-			<Route path='setting' element={Guard(Setting)}></Route>
-			<Route path='user/:username' element={Guard(Profile)}></Route>
-			<Route path='leaderboard' element={Guard(Leaderboard)}></Route>
-			<Route path='*' Component={NotFound}></Route>
+			<Route path='/' element={<Home/>} />
+			<Route path='auth/callback' element={<Auth/>} />
+			<Route path='login' element={<Login/>} />
+			<Route path='game' element={<Game/>} />
+			<Route path='chat' element={<Chat/>} />
+			<Route path='setting' element={<Setting />} />
+			<Route path='user/:username' element={<Profile/>} />
+			<Route path='leaderboard' element={<Leaderboard/>} />
+			<Route path='*' element={<NotFound/>} />
 		</Routes>
 	)
 }

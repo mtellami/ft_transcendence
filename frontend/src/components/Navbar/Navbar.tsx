@@ -5,10 +5,10 @@ import { useState } from 'react'
 
 function Navbar ({ user }: any) {
 	const navigate = useNavigate()
-	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
 	const logout = (e: any) => {
-		Cookies.remove(import.meta.env.VITE_TOKEN_COOKIE);
+		Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN);
 		e.preventDefault()
 		navigate('/login')
 	}

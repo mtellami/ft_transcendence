@@ -14,20 +14,19 @@ export class PrismaService {
 			})
 			return getUser
 		} catch (error) {
-			console.log('Error: cant connect to database')
 			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	async createUser(user: UserCreateDto) {
 		try {
-			await prisma.user.create({
+			const newUser = await prisma.user.create({
 				data: {
 					username: user.username,
-					email: user.email,
-					avatar: user.avatar
+					avatar: user.avatar,
 				}
 			})
+			return newUser
 		} catch (error) {
 			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
 		}

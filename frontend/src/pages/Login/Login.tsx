@@ -3,13 +3,12 @@ import './Login.css'
 import Cookies from 'js-cookie'
 
 function Login() {
-	function auth42Api() {
+	const auth42Api = () => {
 		window.open(`${import.meta.env.VITE_API_URL}?client_id=${import.meta.env.VITE_API_UID}`
-			+ `&redirect_uri=${import.meta.env.VITE_BACKEND_URL}/auth/callback&response_type=code`, '_self');
+			+ `&redirect_uri=${import.meta.env.VITE_API_REDIRECT_URL}&response_type=code`, '_self');
 	}
 	
-	const token = Cookies.get(`${import.meta.env.VITE_TOKEN_COOKIE}`)
-	if (token !== undefined) {
+	if (Cookies.get(`${import.meta.env.VITE_ACCESS_TOKEN}`) !== undefined) {
 		return <Navigate to='/'/>
 	}
 
