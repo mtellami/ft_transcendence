@@ -11,6 +11,7 @@ function Profile () {
 	const [user, setUser] = useState<any>(undefined)
 	const [profile, setProfile] = useState<any>(undefined)
 	const { username } = useParams()
+	const [focus, setFocus] = useState(0)
 
 	useEffect(() => {
 		const fetchUserProfile = async () => {
@@ -32,15 +33,31 @@ function Profile () {
 	} else if (profile === undefined) {
 		return <Loading />
 	} else if (profile) {
+		const list = ['PROFILE', 'HISTORY', 'FRIENDS']
 		return (
 			<div className='layout'>
 				<Navbar user={user} />
 				<div className='profile'>
-					<h1> ID: {profile.id}</h1>
-					<h1> USERNAME: {profile.username}</h1>
-					<h1> AVATAR URL: {profile.avatar}</h1>
-					<h1> FRIENDS: {profile.friends}</h1>
-					<h1> ONLINE: {profile.online.toString()}</h1>
+					<div className='p-sidebar'>
+						<div className='card'>
+							<img src={profile.avatar} />
+							<span>online</span>
+							<h3>{profile.username}</h3>
+							<p>BRONZE</p>
+						</div>
+						<ul className='sections'>
+							{list.map((item, index) => (
+								<li key={index}
+									className={focus === index ? 'focus' : ''}
+									onClick={() => setFocus(index)}
+								>{item}</li>
+							))}
+						</ul>
+						<button>SETTING</button>
+					</div>
+					<div className='p-content'>
+						<h2>Profile</h2>
+					</div>
 				</div>
 			</div>
 		)

@@ -34,7 +34,7 @@
 	margin: 0 0 3rem 0;
 }
 
-button {
+.popup button {
 	background-color: var(--cyan);
 	color: var(--color);
 	transition: 0.7s ease;

@@ -1,4 +1,5 @@
 import '../../styles//Layout.css'
+import './Game.css'
 import Navbar from '../../components/Navbar/Navbar'
 import { useEffect, useState } from 'react'
 import { fetchUser } from '../../utils/fetchUser'
@@ -22,7 +23,9 @@ function Game () {
 		return (
 			<div className="layout">
 				<Navbar user={user} />
-				<h1>Lets play {user.username}, its Ping Pong Game</h1>
+				<div className='game'>
+					<img src='src/assets/game.png' />
+				</div>
 			</div>
 		)
 	} else {

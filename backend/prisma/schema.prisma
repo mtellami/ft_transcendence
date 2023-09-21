@@ -8,13 +8,18 @@ datasource db {
 }
 
 model User {
-	id				Int		  @default(autoincrement())
-	username 	String 	@unique
-	avatar 		String 
-	friends		Int[]
-	blocks		Int[]
-	games	 		Int?	 @default(0)
-	wins 	 		Int?   @default(0)
-	score 		Int?   @default(0)
-	online 		Boolean @default(false)
+	id					Int		  @unique @default(autoincrement())
+	intraId     Int 		@unique
+	username 		String 	@unique
+	email				String 
+	avatar 			String
+	fullName  	String?
+	twoFactor 	Boolean @default(false)
+	phoneNumber Int?
+	friends			Int[]
+	blocks			Int[]
+	games	 			Int?	 	@default(0)
+	wins 	 			Int?   	@default(0)
+	score 			Int?   	@default(0)
+	online 			Boolean @default(false)
 }

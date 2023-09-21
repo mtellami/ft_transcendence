@@ -48,16 +48,17 @@ export class AuthService {
 	async login(code: string) {
 		const intraToken = await this.accessToken(code)
 		const user = await this.accessAuthUserInfo(intraToken.access_token)
-		let authUser = await this.prismaService.findUserByUsername(user.login)
+		let authUser = await this.prismaService.findUserById(user.id)
 		if (!authUser) {
 			authUser = await this.prismaService.createUser({
+				intraId: user.id,
 				username: user.login,
+				email: user.email,
 				avatar: user.image.link
 			})
 		}
 		const token = this.jwtService.generateToken({
-			id: authUser.id,
-			username: authUser.username,
+			intraId: authUser.intraId,
 		})
 		return {access_token: token}
 	}
@@ -69,7 +70,7 @@ export class AuthService {
 				throw new UnauthorizedException('Unauthorized')
 		} 
 		const data = this.jwtService.verifyToken(token)
-		const user = await this.prismaService.findUserByUsername(data.username)
+		const user = await this.prismaService.findUserById(data.intraId)
 		return {
 			username: user.username,
 			avatar: user.avatar,

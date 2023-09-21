@@ -5,7 +5,6 @@ import Cookies from 'js-cookie'
 import { fetchAccessToken } from "../../utils/fetchAccessToken"
 
 function Auth() {
-	console.log(`auth functon called `)
 	const [token, setToken] = useState<any>(undefined)
 	const location = useLocation()
 

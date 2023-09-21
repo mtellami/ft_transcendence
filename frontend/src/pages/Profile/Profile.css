@@ -1,2 +1,97 @@
 @import '../../styles/Layout.css';
 
+.profile {
+	display: flex;
+	justify-content: space-evenly;
+	height: 85%;
+	margin: 25px 0;
+}
+
+.p-sidebar {
+	background-color: #1C2236;
+	flex-basis: 25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 30px;
+	border-radius: 10px;
+}
+
+.p-sidebar .card {
+	flex-basis: 40%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.card span {
+	position: absolute;
+	right: 60px;
+	bottom: 40%;
+	color: #01a049;
+}
+
+.card span::before {
+	content: "";
+	position: absolute;
+	background-color: #01a049;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	left: -30px;
+	top: -3px;
+}
+
+.card h3 {
+	font-size: 2rem;
+	letter-spacing: 3px;
+	margin: 10px 0;
+}
+
+.p-sidebar .card img{
+	width: 200px;
+	border-radius: 50%;
+}
+
+.p-sidebar .sections {
+	flex-basis: 30%;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.p-sidebar .sections li {
+	border: 1px solid white;
+	line-height: 2;
+	padding: 10px;
+	height: 20%;
+	cursor: pointer;
+	transition: 0.3s ease;
+} 
+
+.focus {
+	background-color: white;
+	color: var(--bg);
+}
+
+.p-sidebar .sections li:hover {
+	background-color: white;
+	color: var(--bg);
+}
+
+.p-sidebar button {
+	flex-basis: 7%;
+}
+
+/* ------------------ */
+
+.p-content {
+	background-color: #1C2236;
+	flex-basis: 70%;
+	border-radius: 10px;
+	padding: 30px;
+}
+

@@ -1,0 +1,40 @@
+.s-content {
+	background-color: #1C2236;
+	display: flex;
+	justify-content: space-evenly;
+	height: 85%;
+	margin: 25px;
+	border-radius: 10px;
+	position: relative;
+}
+
+label {
+	display: block;
+}
+
+.s-content h1 {
+	position: absolute;
+	left: 40px;
+	top: 30px;
+}
+
+.s-content > div {
+	width: 45%;
+	padding-top: 100px;
+}
+
+.s-content .section-1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.section-1 > div {
+	flex-basis: 25%;
+}
+
+.s-content .section-2 {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}

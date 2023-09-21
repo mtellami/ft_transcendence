@@ -59,6 +59,7 @@
 	transform: translateX(150px);
 	transition: 0.5s ease;
 	opacity: 0;
+	z-index: 100;
 }
 
 .menu li:hover {

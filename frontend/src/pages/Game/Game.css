@@ -1,0 +1,10 @@
+.game {
+	height: 90%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.game img {
+	width: 75%;
+}

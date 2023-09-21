@@ -22,7 +22,7 @@ function Chat () {
 		return (
 			<div className="layout">
 				<Navbar user={user} />
-				<h1>This is your Chat Room {user.username}</h1>
+				<h1>Chat Room {user.username}</h1>
 			</div>
 		)
 	} else {

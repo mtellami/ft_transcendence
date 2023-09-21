@@ -1,7 +1,48 @@
 @import '../../styles/Layout.css';
 
-.container {
-	background-color: #000033;
-	height: 200px;
-	width: 500px;
+.body {
+	display: flex;
+	height: 90%;
+}
+
+.body .image {
+	flex-basis: 50%;
+}
+
+.image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.body .content {
+	flex-basis: 50%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.body .content h1 {
+	font-size: 8rem;
+}
+
+.body .content h3 {
+	font-size: 3.5rem;
+	color: #C0C0C0;
+	font-weight: 400;
+}
+
+.body .content button {
+	font-size: 1.5rem;
+	margin: 100px 0;
+	height: 4rem;
+	background-color: var(--cyan);
+	color: var(--color);
+	transition: 0.7s ease;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 200px;
 }
