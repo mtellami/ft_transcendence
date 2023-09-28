@@ -10,6 +10,7 @@
 
 label {
 	display: block;
+	font-size: 1.4rem;
 }
 
 .s-content h1 {
@@ -27,6 +28,18 @@ label {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
+	position: relative;
+	margin-top: 10px;
+}
+
+.section-1::before {
+	content: '';
+	position: absolute;
+	width: 3px;
+	height: 80%;
+	right: 0;
+	top: 10%;
+	background-color: #CCC;
 }
 
 .section-1 > div {
@@ -36,5 +49,113 @@ label {
 .s-content .section-2 {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: space-between;
+}
+
+.section-1 .s-avatar input {
+	display: none;
+}
+
+.section-1 .s-avatar {
+	display: flex;
+}
+
+.s-avatar label {
+	margin-right: 100px;
+}
+
+.section-1 .s-avatar .upload {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
+}
+
+.upload img {
+	width: 150%;
+	height: 150%;
+	display: block;
+	border-radius: 50%;
+	position: relative;
+}
+
+.section-1 .s-avatar .upload:hover {
+	opacity: 0.7;
+}
+
+label {
+	margin-bottom: 20px;
+}
+
+.confirm {
+	margin-bottom: 100px;
+}
+
+input[type='text'], input[type='email'], input[type='tel'] {
+	background-color: #262f4a;
+	width: 50%;
+	font-size: 1.2rem;
+	color: #FFF;
+	border: none;
+	padding: 15px;
+	border-radius: 5px;
+}
+
+input:focus {
+	outline: none;
+}
+
+input:focus::placeholder, input:hover::placeholder {
+	transition: 0.3s ease-in-out;
+  color: transparent;
+}
+
+.section-1 .s-authentication {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.section-1 .s-authentication .checkbox {
+	background-color: red;
+	width: 25px;
+	height: 25px;
+}
+
+.section-1 .s-remove-account label {
+	font-size: 1.2rem;
+	color: #CCC;
+}
+
+.section-1 .remove-account {
+	background-color: #801818;
+	font-size: 1.2rem;
+	color: #FFF;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+
+.section-2 .confirm {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.section-2 .confirm button {	
+	font-size: 1.2rem;
+	color: #FFF;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin-right: 20px;
+}
+
+.section-2 .confirm .save {
+	background-color: #107EA2;
+}
+
+.section-2 .confirm .cancel {
+	color: #000;
+	background-color: #CCC;
 }

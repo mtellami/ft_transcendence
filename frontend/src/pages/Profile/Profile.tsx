@@ -2,12 +2,16 @@ import './Profile.css'
 import { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import Loading from '../../components/Loading/Loading'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
 import { fetchUser } from '../../utils/fetchUser'
 import { fetchProfile } from '../../utils/fetchProfile'
+import Stat from '../../components/Profile/Stat'
+import History from '../../components/Profile/History'
+import Friend from '../../components/Profile/Friends'
 
 function Profile () {
+	const navigate = useNavigate()
 	const [user, setUser] = useState<any>(undefined)
 	const [profile, setProfile] = useState<any>(undefined)
 	const { username } = useParams()
@@ -27,6 +31,11 @@ function Profile () {
 		}
 		fetchUserProfile()
 	}, [username])
+
+	const setting = (e: any) => {
+		e.preventDefault()
+		navigate('/setting')
+	}
 
 	if (user === null) {
 		return <Navigate to="/login" />
@@ -50,13 +59,17 @@ function Profile () {
 								<li key={index}
 									className={focus === index ? 'focus' : ''}
 									onClick={() => setFocus(index)}
-								>{item}</li>
+								>
+									{item}
+								</li>
 							))}
 						</ul>
-						<button>SETTING</button>
+						<button onClick={setting}>SETTING</button>
 					</div>
 					<div className='p-content'>
-						<h2>Profile</h2>
+						{focus == 0 && <Stat />}
+						{focus == 1 && <History />}
+						{focus == 2 && <Friend />}
 					</div>
 				</div>
 			</div>

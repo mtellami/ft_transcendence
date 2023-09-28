@@ -95,3 +95,6 @@
 	padding: 30px;
 }
 
+.p-content > h2 {
+	margin-bottom: 30px;
+}

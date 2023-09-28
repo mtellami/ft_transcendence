@@ -28,7 +28,6 @@ export class PrismaService {
 			})
 			return getUser
 		} catch (error) {
-			// console.log(error)
 			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -50,14 +49,26 @@ export class PrismaService {
 	}
 
 	async updateUser(user: any, userNewData: UserUpdateDto) {
-		const existUser = await this.findUserByUsername(userNewData.username)
-		if (existUser) {
-			throw new BadRequestException('Bad request: username already exist')
+		if (userNewData.username !== undefined) {
+			const existUser = await this.findUserByUsername(userNewData.username)
+			if (existUser) {
+				throw new BadRequestException('Bad request: username already exist')
+			}
 		}
 		try {
 			await prisma.user.update({
 				where: { intraId: user.intraId },
 				data: userNewData
+			})
+		} catch (error) {
+			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	async removeUserById(id: number) {
+		try {
+			await prisma.user.delete({
+				where: { intraId: id }
 			})
 		} catch (error) {
 			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);

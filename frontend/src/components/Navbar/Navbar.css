@@ -24,16 +24,23 @@
 
 .navbar ul li {
 	cursor: pointer;
-	transition: 0.3s ease;
+	transition: 0.2s ease;
 }
 
 .navbar ul li:hover {
 	color: gray;
 }
 
+.icon {
+	position: absolute;
+	top: 40px;
+	right: 130px;
+	font-size: 1.5rem;
+}
+
 .navbar .burger {
 	flex-basis: 30%;
-	height: 55px;
+	height: 40px;
 	display: flex;
 	justify-content: flex-end;
 	cursor: pointer;

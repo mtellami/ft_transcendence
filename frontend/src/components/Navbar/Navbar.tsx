@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import './Navbar.css'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
+import { FaBell } from 'react-icons/fa6'
 
 function Navbar ({ user }: any) {
 	const navigate = useNavigate()
@@ -18,10 +19,6 @@ function Navbar ({ user }: any) {
 		navigate(route)
 	}
 
-	const toggleMenu = () => {
-		setIsMenuOpen(!isMenuOpen)
-	}
-
 	return (
 		<div className='navbar'>
 			<h3>PonGame</h3>
@@ -30,8 +27,9 @@ function Navbar ({ user }: any) {
 				<li onClick={(e) => href(e, '/game')}>GAME</li>
 				<li onClick={(e) => href(e, '/chat')}>CHAT</li>
 			</ul>
+			<FaBell className='icon' />
 			<div className='burger'>
-				<img onClick={toggleMenu} src={`${user.avatar}`} alt='avatar' />
+				<img onClick={() => setIsMenuOpen(!isMenuOpen)} src={`${user.avatar}`} alt='avatar' />
 				<ul className={`menu ${isMenuOpen ? 'show' : ''}`}>
 					<li onClick={(e) => href(e, `/user/${user.username}`)}>PROFILE</li>
 					<li onClick={(e) => href(e, '/setting')}>SETTING</li>

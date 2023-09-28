@@ -26,7 +26,7 @@ function Home() {
 		return <Loading />
 	} else if (user) {
 		return (
-			<div className='layout container'>
+			<div className='layout'>
 				<Navbar user={user} />
 				<div className='body'>
 					<div className='content'>

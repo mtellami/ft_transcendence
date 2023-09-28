@@ -39,4 +39,9 @@ export class UserService {
       throw new BadRequestException('Bad request: failed to update user information');
 		}
 	}
+
+	async removeAccount(@Req() req: Request) {
+		const user = req['user']
+		return this.prismaService.removeUserById(user.intraId)
+	}
 }

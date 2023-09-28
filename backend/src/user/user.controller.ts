@@ -1,5 +1,6 @@
 import { Body,
 	Controller,
+	Delete,
 	Get,
 	Param,
 	Patch,
@@ -25,11 +26,18 @@ export class UserController {
 	}
 
 	@UseGuards(AuthGuard)
-	@Patch('setting')
+	@Patch()
 	@UseInterceptors(FileInterceptor('avatar'))
 	updateUser(@UploadedFile() avatar: Express.Multer.File,
 		@Body() userUpdateDto: UserUpdateDto,
 		@Req() req: Request) {
 		return this.userService.updateUser(avatar, userUpdateDto, req)
 	}
+
+	@UseGuards(AuthGuard)
+	@Delete()
+	removeAccount(@Req() req: Request) {
+		return this.userService.removeAccount(req)
+	}
+
 }
