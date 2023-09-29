@@ -1,0 +1,5 @@
+export { default as Loading } from './Loading/Loading'
+export { default as Navbar } from './Navbar/Navbar'
+export { default as Stat } from './Profile/Stat'
+export { default as History } from './Profile/History'
+export { default as Friends } from './Profile/Friends'

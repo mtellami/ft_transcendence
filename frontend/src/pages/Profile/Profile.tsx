@@ -1,14 +1,9 @@
 import './Profile.css'
 import { useEffect, useState } from 'react'
-import Navbar from '../../components/Navbar/Navbar'
-import Loading from '../../components/Loading/Loading'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
-import { fetchUser } from '../../utils/fetchUser'
-import { fetchProfile } from '../../utils/fetchProfile'
-import Stat from '../../components/Profile/Stat'
-import History from '../../components/Profile/History'
-import Friend from '../../components/Profile/Friends'
+import { fetchProfile, fetchUser } from '../../utils/utils'
+import { Loading, Navbar, Stat, History, Friends } from '../../components/components'
 
 function Profile () {
 	const navigate = useNavigate()
@@ -50,7 +45,7 @@ function Profile () {
 					<div className='p-sidebar'>
 						<div className='card'>
 							<img src={profile.avatar} />
-							<span>online</span>
+							<span>{profile.online ? 'online' : 'offline'}</span>
 							<h3>{profile.username}</h3>
 							<p>BRONZE</p>
 						</div>
@@ -67,9 +62,9 @@ function Profile () {
 						<button onClick={setting}>SETTING</button>
 					</div>
 					<div className='p-content'>
-						{focus == 0 && <Stat />}
-						{focus == 1 && <History />}
-						{focus == 2 && <Friend />}
+						{focus == 0 && <Stat profile={profile} user={user} />}
+						{focus == 1 && <History profile={profile} />}
+						{focus == 2 && <Friends profile={profile} />}
 					</div>
 				</div>
 			</div>

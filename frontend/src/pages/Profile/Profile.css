@@ -28,20 +28,22 @@
 
 .card span {
 	position: absolute;
-	right: 60px;
-	bottom: 40%;
+	right: 70px;
+	bottom: 45%;
+	padding: 1px 8px;
 	color: #01a049;
+	background-color: rgba(0, 255, 0, 0.1);
+	border-radius: 20px;
 }
 
 .card span::before {
 	content: "";
 	position: absolute;
 	background-color: #01a049;
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 	border-radius: 50%;
-	left: -30px;
-	top: -3px;
+	left: -25px;
 }
 
 .card h3 {
@@ -51,7 +53,7 @@
 }
 
 .p-sidebar .card img{
-	width: 200px;
+	width: 150px;
 	border-radius: 50%;
 }
 

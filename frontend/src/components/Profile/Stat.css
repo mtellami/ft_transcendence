@@ -48,20 +48,41 @@
 	margin-bottom: 15px;
 }
 
-.win, .lose {
-	flex-grow: 1;
-	display: flex;
-	font-size: 1.5rem;
-	gap: 80px;
-	padding: 20px 10px !important;
+.rank .progress {
+	width: 300px;
+	height: 10px;
+	background-color: #DDD;
+	border-radius: 5px;
 	position: relative;
 }
 
-.win p, .lose p {
+.progress span {
 	position: absolute;
-	bottom: 0;
-	right: 50%;
-	font-size: 1.2rem;
+	top: 0;
+	left: 0;
+	height: 10px;
+	background-color: #107EA2;
+	border-radius: 5px;
+}
+
+.win, .lose {
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	font-size: 1.5rem;
+	gap: 80px;
+	padding: 15px 40px !important;
+	position: relative;
+}
+
+.win > div, .lose > div {
+	text-align: center;
+}
+
+.win p, .lose p {
+	font-size: 1rem;
+	margin-top: 15px;
+	color: #CCC;
 }
 
 .option {
@@ -70,14 +91,13 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #1C2236 !important;
+	position: relative;
 }
 
 .wraper {
-	background-color: #262f4a;
-	padding: 20px 40px;
 	display: flex;
 	align-items: center;
-	border-radius: 5px;
+	border-radius: 3px;
 }
 
 
@@ -88,7 +108,7 @@
 	outline: none;
 	background-color: #107EA2;
 	color: #FFF;
-	font-size: 1rem;
+	font-size: 1.3rem;
 	margin: 0 5px;
 }
 
@@ -122,3 +142,17 @@
 	margin: 20px 0;
 }
 
+.block-button {
+	position: absolute;
+	bottom: 25%;
+	right: 10%;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 0.7rem;
+	background-color: rgba(16, 126, 162, 0.6);
+	cursor: pointer;
+}
+
+.block-button:hover {
+	background-color: #801818;
+}

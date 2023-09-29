@@ -10,9 +10,9 @@ import { Body,
 	UseInterceptors
 } from '@nestjs/common';
 
+import { FileInterceptor } from '@nestjs/platform-express';
 import { UserService } from './user.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { UserUpdateDto } from './dto/user.update.dto';
 
 @Controller('user')

@@ -4,3 +4,7 @@
 	--color: #E6E7EB;
 	--cyan: #107EA2;
 }
+
+button {
+	cursor: pointer;
+}

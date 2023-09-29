@@ -1,7 +1,15 @@
+import { useState } from 'react'
 import './Stat.css'
-import { FaShield, FaMessage, FaEllipsisVertical, FaCertificate, FaCircleCheck, FaX } from 'react-icons/fa6'
+import { FaShield,
+	FaMessage,
+	FaEllipsisVertical,
+	FaMeteor,
+	FaTableTennisPaddleBall
+} from 'react-icons/fa6'
 
-function Stat () {
+function Stat ({ profile, user }: any) {
+	const [optionIsOpen, setOptionIsOpen] = useState(false)
+
 	return (
 		<div className='stat'>
 			<div className='info'>
@@ -9,28 +17,35 @@ function Stat () {
 				<div className='container-1'>
 					<div className='s-section-1'>
 						<div className='rank'>
-							<FaCertificate style={{ color: 'orange', fontSize: '4rem', marginLeft: '30px' }} /> <div>
+							<FaMeteor style={{ color: 'orange', fontSize: '5rem', marginLeft: '30px' }} /> <div>
 								<h1>BRONZE</h1>
-								<h3>70 / 1200</h3>
-								<p>[\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ .................................]</p>
+								<h3>{profile.score} / 1200</h3>
+								<div className='progress'><span style={{ width: profile.score + 100 }}></span></div>
 							</div>
 						</div>
 						<div className='win'>
-							<FaCircleCheck style={{ color: 'green', fontSize: '2.5rem' }} />
-							<h3>85</h3>
-							<p>TOTAL WINS</p>
+							<FaTableTennisPaddleBall style={{ color: 'green', fontSize: '3.5rem' }} />
+							<div>
+								<h2>{profile.wins}</h2>
+								<p>TOTAL WINS</p>
+							</div>
 						</div>
 						<div className='lose'>
-							<FaX style={{ color: 'red', fontSize: '2.5rem' }}/>
-							<h3>42</h3>
-							<p>TOTAL LOSES</p>
+							<FaTableTennisPaddleBall style={{ color: 'red', fontSize: '3.5rem' }}/>
+							<div>
+								<h2>{profile.games - profile.wins}</h2>
+								<p>TOTAL LOSES</p>
+							</div>
 						</div>
 					</div>
 					<div className='option'>
 						<div className='wraper'>
-							<button>ADD FRIEND</button>
+							<button>{profile.friends.includes(user.id) ? 'FRIEND' : 'ADD FRIEND'}</button>
 							<button><FaMessage /></button>
-							<button><FaEllipsisVertical /></button>
+							<button className='s-option' onClick={() => setOptionIsOpen(!optionIsOpen)}>
+								<FaEllipsisVertical />
+							</button>
+							<div className='block-button' style={{ display: optionIsOpen ? 'block' : 'none' }}>BLOCK</div>
 						</div>
 					</div>
 				</div>
