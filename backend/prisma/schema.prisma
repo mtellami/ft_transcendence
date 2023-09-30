@@ -8,18 +8,58 @@ datasource db {
 }
 
 model User {
-	id					Int		  @unique @default(autoincrement())
-	intraId     Int 		@unique
-	username 		String 	@unique
-	email				String 
+	id					Int		  	@id @default(autoincrement())
+	intraId     Int 			@unique
+
+	username 		String	 	@unique
 	avatar 			String
+	twoFactor 	Boolean 	@default(false)
+
+	email				String 
 	fullName  	String?
-	twoFactor 	Boolean @default(false)
 	phoneNumber Int?
-	friends			Int[]
-	blocks			Int[]
-	games	 			Int?	 	@default(0)
-	wins 	 			Int?   	@default(0)
-	score 			Int?   	@default(0)
-	online 			Boolean @default(false)
+
+	friends			User[] 		@relation("friends")
+	friendOf		User[] 		@relation("friends")
+	blocks			User[] 		@relation("blocks")
+	blockBy			User[] 		@relation("blocks")
+
+	games	 			Int?	 		@default(0)
+	wins 	 			Int?   		@default(0)
+	score 			Int?   		@default(0)
+	online 			Boolean 	@default(false)
+
+	rooms 			Room[]		@relation("joined")
+	roomsAdmin  Room[]		@relation("admin")
+	bannedFrom 	Room[]		@relation("banned")
+
+	messages 		Message[] @relation("author")
 }
+
+model Room {
+	id					Int  			@id @default(autoincrement())
+	createdAt 	DateTime 	@default(now())
+
+	name 				String 		@unique
+	type 				String
+	password 		String?
+
+	admins 			User[] 		@relation("admin")
+	users 			User[] 		@relation("joined")
+	banned 			User[]		@relation("banned")
+
+	messages 		Message[]
+}
+
+model Message {
+	id					Int  			@id @default(autoincrement())
+	createdAt 	DateTime 	@default(now())
+	content 		String
+
+	authorName 	String
+	author 			User  		@relation("author", fields: [authorName], references: [username])
+
+	roomId 			Int
+	room 				Room 			@relation(fields: [roomId], references: [id])
+}
+
