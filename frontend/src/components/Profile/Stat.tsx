@@ -40,7 +40,7 @@ function Stat ({ profile, user }: any) {
 					</div>
 					<div className='option'>
 						<div className='wraper'>
-							<button>{profile.friends.includes(user.id) ? 'FRIEND' : 'ADD FRIEND'}</button>
+							<button>ADD FRIEND</button>
 							<button><FaMessage /></button>
 							<button className='s-option' onClick={() => setOptionIsOpen(!optionIsOpen)}>
 								<FaEllipsisVertical />

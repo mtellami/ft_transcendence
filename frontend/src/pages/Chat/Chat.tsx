@@ -1,9 +1,8 @@
-import '../../styles/Layout.css'
-import Navbar from '../../components/Navbar/Navbar'
 import { useEffect, useState } from 'react'
-import { fetchUser } from '../../utils/fetchUser'
-import Loading from '../../components/Loading/Loading'
 import { Navigate } from 'react-router-dom'
+import { fetchUser } from '../../utils/utils'
+import { Loading, Navbar } from '../../components/components'
+import '../../styles/Layout.css'
 
 function Chat () {
 	const [user, setUser] = useState<any>(undefined)

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { fetchUser } from '../../utils/utils'
 import './Leaderboard.css'
-import { fetchUser } from '../../utils/fetchUser'
 
 function Leaderboard () {
 	const [user, setUser] = useState<any>(undefined)

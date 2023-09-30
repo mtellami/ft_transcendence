@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
-import './Login.css'
 import Cookies from 'js-cookie'
+import './Login.css'
 
 function Login() {
 	const auth42Api = () => {

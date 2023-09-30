@@ -1,9 +1,8 @@
-import './Home.css'
 import { useEffect, useState } from 'react'
-import { fetchUser } from '../../utils/fetchUser'
 import { Navigate, useNavigate } from 'react-router-dom'
-import Navbar from '../../components/Navbar/Navbar'
-import Loading from '../../components/Loading/Loading'
+import { fetchUser } from '../../utils/utils'
+import { Loading, Navbar } from '../../components/components'
+import './Home.css'
 
 function Home() {
 	const [user, setUser] = useState<any>(undefined)

@@ -1,12 +1,9 @@
-import '../../styles/Layout.css'
-import './Setting.css'
-import Navbar from '../../components/Navbar/Navbar'
 import { useEffect, useState } from 'react'
-import { fetchUser } from '../../utils/fetchUser'
-import Loading from '../../components/Loading/Loading'
 import { Navigate, useNavigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { Loading, Navbar } from '../../components/components'
+import { fetchUser, removeUserAccount, updateUserAccount } from '../../utils/utils'
 import { FaRegTrashCan, FaPen } from 'react-icons/fa6'
+import './Setting.css'
 
 function Setting () {
 	const navigate = useNavigate()
@@ -35,20 +32,9 @@ function Setting () {
 
 	const removeAccount = async (e: any) => {
 		e.preventDefault()
-		const token = Cookies.get(`${import.meta.env.VITE_ACCESS_TOKEN}`)
-		try {
-			const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
-				headers: {
-					'Authorization': `Bearer ${token}`,
-				},
-				method: 'DELETE',
-			})
-			if (response.ok) {
-				Cookies.remove(`${import.meta.env.VITE_ACCESS_TOKEN}`)
-				navigate('/login')
-			}
-		} catch (error) {
-			console.log(error)
+		const response = await removeUserAccount()
+		if (response) {
+			navigate('/login')
 		}
 	}
 
@@ -77,23 +63,12 @@ function Setting () {
 
 	const saveChanges = async (e: any) => {
 		e.preventDefault()
-		const token = Cookies.get(`${import.meta.env.VITE_ACCESS_TOKEN}`)
 		const form = getFormData(formData)
-		try {
-			const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
-				headers: {
-					'Authorization': `Bearer ${token}`,
-				},
-				method: 'PATCH',
-				body: form
-			})
-			if (response.ok) {
-				console.log('changes saved successfully')
-			} else {
-				console.log('fail to save changes')
-			}
-		} catch (error) {
-			console.log('cant save changes')
+		const response = await updateUserAccount(form)
+		if (response) {
+			console.log('changes saved successfully')
+		} else {
+			console.log('fail to save changes')
 		}
 	}
 	
@@ -184,7 +159,6 @@ function Setting () {
 	} else {
 		return <Navigate to="/login" />
 	}
-	
 }
 
 export default Setting

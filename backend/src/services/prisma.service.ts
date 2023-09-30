@@ -15,7 +15,7 @@ export class PrismaService {
 			})
 			return getUser
 		} catch (error) {
-			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+			return null
 		}
 	}
 
@@ -28,7 +28,7 @@ export class PrismaService {
 			})
 			return getUser
 		} catch (error) {
-			throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+			return null
 		}
 	}
 

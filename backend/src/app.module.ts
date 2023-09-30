@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -12,7 +13,8 @@ import { MulterModule } from '@nestjs/platform-express';
 		AuthModule,
 		MulterModule.register({
 			dest: './avatars',
-		})
+		}),
+		ChatModule
 	],
   controllers: [AppController],
   providers: [AppService],

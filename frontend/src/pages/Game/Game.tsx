@@ -1,10 +1,8 @@
-import '../../styles//Layout.css'
-import './Game.css'
-import Navbar from '../../components/Navbar/Navbar'
-import { useEffect, useState } from 'react'
-import { fetchUser } from '../../utils/fetchUser'
-import Loading from '../../components/Loading/Loading'
 import { Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { fetchUser } from '../../utils/utils'
+import { Loading, Navbar } from '../../components/components'
+import './Game.css'
 
 function Game () {
 	const [user, setUser] = useState<any>(undefined)

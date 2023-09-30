@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import axios from 'axios'
 
 export async function fetchUser() {
 	try {
@@ -6,11 +7,11 @@ export async function fetchUser() {
 		if (token === undefined) {
 			throw new Error('Acces token not found')
 		}
-		const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
+		const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
 			headers: { 'Authorization': `Bearer ${token}` },
 		})
-		if (response.ok) {
-			const data = await response.json()
+		if (response.status >= 200 && response.status < 300) {
+			const data = await response.data
 			return data
 		} else {
 			throw new Error('Unauthorized')

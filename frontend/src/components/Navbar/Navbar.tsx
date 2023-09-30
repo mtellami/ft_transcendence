@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import './Navbar.css'
 import Cookies from 'js-cookie'
-import { useState } from 'react'
 import { FaBell } from 'react-icons/fa6'
 
 function Navbar ({ user }: any) {

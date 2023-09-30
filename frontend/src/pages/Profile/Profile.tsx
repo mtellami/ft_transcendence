@@ -1,9 +1,15 @@
-import './Profile.css'
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
+import './Profile.css'
 import { fetchProfile, fetchUser } from '../../utils/utils'
-import { Loading, Navbar, Stat, History, Friends } from '../../components/components'
+import {
+	Loading,
+	Navbar,
+	Stat,
+	History,
+	Friends
+} from '../../components/components'
 
 function Profile () {
 	const navigate = useNavigate()

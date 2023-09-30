@@ -5,7 +5,7 @@ services:
     container_name: database
     image: postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - transcendence
     volumes:
@@ -14,29 +14,29 @@ services:
       - .env
     restart: always
 
-  backend:
-    container_name: backend
-    image: nestjs:1337
-    build:
-      context: ./backend
-      dockerfile: dockerfile
-    ports:
-      - 3000:3000
-    networks:
-      - transcendence
-    restart: always
+  # backend:
+  #   container_name: backend
+  #   image: nestjs:1337
+  #   build:
+  #     context: ./backend
+  #     dockerfile: dockerfile
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - transcendence
+  #   restart: always
 
-  frontend:
-    container_name: frontend
-    image: reactjs:1337
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
-    ports:
-      - 4000:4000
-    networks:
-      - transcendence
-    restart: always
+  # frontend:
+  #   container_name: frontend
+  #   image: reactjs:1337
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: dockerfile
+  #   ports:
+  #     - 4000:4000
+  #   networks:
+  #     - transcendence
+  #   restart: always
 
 volumes:
   database:
