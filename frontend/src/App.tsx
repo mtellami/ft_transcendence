@@ -7,7 +7,6 @@ import Auth from './pages/Auth/Auth'
 import Game from './pages/Game/Game'
 import Chat from './pages/Chat/Chat'
 import Profile from './pages/Profile/Profile'
-import Leaderboard from './pages/Leaderboard/Leaderboard'
 import Setting from './pages/Setting/Setting'
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
 			<Route path='chat' element={<Chat/>} />
 			<Route path='setting' element={<Setting />} />
 			<Route path='user/:username' element={<Profile/>} />
-			<Route path='leaderboard' element={<Leaderboard/>} />
 			<Route path='*' element={<NotFound/>} />
 		</Routes>
 	)

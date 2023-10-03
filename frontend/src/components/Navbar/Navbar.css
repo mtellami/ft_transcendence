@@ -54,15 +54,15 @@
 
 .menu {
 	background-color: #1C2236;
-	width: 200px;
+	width: 170px;
 	position: absolute;
-	height: 120px;
+	height: 150px;
+	padding-left: 20px;
 	top: 80px;
 	right: -10px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+	align-items: flex-start !important;
 	transform: translateX(150px);
 	transition: 0.5s ease;
 	opacity: 0;
