@@ -4,11 +4,13 @@ import { fetchUser } from '../../utils/utils'
 import { Loading, Navbar } from '../../components/components'
 import { BsSearch, BsFillSendFill } from 'react-icons/bs'
 import { GrMoreVertical } from "react-icons/gr";
+import io from 'socket.io-client'
 import './Chat.css'
 
 function Chat () {
 	const [user, setUser] = useState<any>(undefined)
 	const [focus, setFocus] = useState(0)
+	const socket = io("http://localhost:3000")
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -16,7 +18,16 @@ function Chat () {
 			setUser(data)
 		}
 		getUser()
+
+		socket.emit('message', 'connnected')
+		return () => {
+			socket.disconnect()
+		}
 	}, [])
+
+	const test = () => {
+		socket.emit('message', "hello from front")
+	}
 
 	const list = ['CHAT', 'CHANNEL']
 
@@ -74,7 +85,7 @@ function Chat () {
 						<div className='chat-body'></div>
 						<div className='chat-input'>
 							<input type='text' placeholder='send a message ..' />
-							<BsFillSendFill style={{fontSize: '1.5rem', position: 'absolute', right: '20px', top: '30%', cursor: 'pointer'}} />
+							<BsFillSendFill onClick={test} style={{fontSize: '1.5rem', position: 'absolute', right: '20px', top: '30%', cursor: 'pointer'}} />
 						</div>
 					</div>
 					<div className='friend-list'>

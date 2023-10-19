@@ -22,7 +22,7 @@ export class AuthService {
   		method: 'POST',
   		headers: { 'Content-Type': 'application/json' },
   		body: JSON.stringify(formData),
-		});
+		})
     if (!response.ok) {
 			throw new UnauthorizedException('Unauthorized')
     }
@@ -30,7 +30,7 @@ export class AuthService {
     return data;
 	}
 
-	// Get User Information (42.AUTH)
+// Get User Information (42.AUTH)
 	async accessAuthUserInfo(accessToken: string) {    
     const response = await fetch("https://api.intra.42.fr/v2/me", {
       method: "GET",
@@ -72,6 +72,7 @@ export class AuthService {
 		const data = this.jwtService.verifyToken(token)
 		const user = await this.prismaService.findUserById(data.intraId)
 		return {
+			id: user.id,
 			username: user.username,
 			avatar: user.avatar,
 		}

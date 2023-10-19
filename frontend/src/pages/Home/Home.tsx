@@ -1,47 +1,32 @@
-import { useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { fetchUser } from '../../utils/utils'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Loading, Navbar } from '../../components/components'
+import { UserContext } from '../../context/UserContext'
 import './Home.css'
 
 function Home() {
-	const [user, setUser] = useState<any>(undefined)
 	const navigate = useNavigate()
+	const { user } = useContext(UserContext)
 
-	useEffect(() => {
-		const getUser = async () => {
-			const data = await fetchUser()
-			setUser(data)
-		}
-		getUser()
-	}, [])
-
-	const play = (e: any) => {
-		e.preventDefault()
-		navigate('/game')
+	if (!user) {
+		return <Loading />
 	}
 
-	if (user === undefined) {
-		return <Loading />
-	} else if (user) {
-		return (
-			<div className='layout'>
-				<Navbar user={user} />
-				<div className='body'>
-					<div className='content'>
-						<h1>PINGAME</h1>
-						<h3>LET THE GAME BEGIN</h3>
-						<button onClick={play}>PLAY</button>
-					</div>
-					<div className='image'>
-						<img src='src/assets/home.jpeg' />
-					</div>
+	return (
+		<div className='layout'>
+			<Navbar user={user} />
+			<div className='body'>
+				<div className='content'>
+					<h1>PINGAME</h1>
+					<h3>LET THE GAME BEGIN</h3>
+					<button onClick={(e) => {e.preventDefault; navigate('/game')}}>PLAY</button>
+				</div>
+				<div className='image'>
+					<img src='src/assets/home.jpeg' />
 				</div>
 			</div>
-		)
-	} else {
-		return <Navigate to="/login" />
-	}
+		</div>
+	)
 }
 
 export default Home

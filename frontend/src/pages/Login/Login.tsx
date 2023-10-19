@@ -1,16 +1,22 @@
-import { Navigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 import './Login.css'
 
 function Login() {
+	const { login } = useAuth()
+
 	const auth42Api = () => {
 		window.open(`${import.meta.env.VITE_API_URL}?client_id=${import.meta.env.VITE_API_UID}`
 			+ `&redirect_uri=${import.meta.env.VITE_API_REDIRECT_URL}&response_type=code`, '_self');
 	}
 	
-	if (Cookies.get(`${import.meta.env.VITE_ACCESS_TOKEN}`) !== undefined) {
-		return <Navigate to='/'/>
-	}
+	useEffect(() => {
+		const queryParams = new URLSearchParams(location.search)
+		const code = queryParams.get('code')
+		if (code) {
+			login(code)
+		}
+	}, [])
 
   return (
     <div className='layout login'>

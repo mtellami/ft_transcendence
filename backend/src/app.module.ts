@@ -14,7 +14,7 @@ import { ChatModule } from './chat/chat.module';
 		MulterModule.register({
 			dest: './avatars',
 		}),
-		ChatModule
+		ChatModule,
 	],
   controllers: [AppController],
   providers: [AppService],
