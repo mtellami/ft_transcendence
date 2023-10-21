@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { Loading, Navbar } from '../../components/components'
-import { fetchUser, removeUserAccount, updateUserAccount } from '../../utils/utils'
+import { Loading } from '../../components/components'
+import { removeUserAccount, updateUserAccount } from '../../utils/utils'
 import { FaRegTrashCan, FaPen } from 'react-icons/fa6'
 import './Setting.css'
 
@@ -94,20 +94,11 @@ function Setting () {
 		}
 	}
 
-	useEffect(() => {
-		const getUser = async () => {
-			const data = await fetchUser()
-			setUser(data)
-		}
-		getUser()
-	}, [])
-
 	if (user === undefined) {
 		return <Loading />
 	} else if (user) {
 		return (
 			<div className='layout'>
-				<Navbar user={user} />
 				<form onSubmit={saveChanges} className='s-content' autoComplete='off'>
 					<h1>Account Setting</h1>
 					<div className='section-1'>

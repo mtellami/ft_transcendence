@@ -1,5 +1,3 @@
-export { fetchAccessToken } from './fetchAccessToken'
 export { fetchProfile } from './fetchProfile'
-export { fetchUser } from './fetchUser'
 export { removeUserAccount } from './removeUserAccount'
 export {updateUserAccount} from './updateUserAccount.tsx'

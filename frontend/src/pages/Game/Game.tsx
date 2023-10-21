@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Loading, Navbar } from '../../components/components'
+import { Loading } from '../../components/components'
 import './Game.css'
 import { UserContext } from '../../context/UserContext'
 
@@ -12,7 +12,6 @@ function Game () {
 
 	return (
 		<div className="layout">
-			<Navbar user={user} />
 			<div className='game'>Game page: create multiSections page</div>
 		</div>
 	)

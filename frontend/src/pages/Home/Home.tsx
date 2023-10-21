@@ -1,20 +1,11 @@
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Loading, Navbar } from '../../components/components'
-import { UserContext } from '../../context/UserContext'
 import './Home.css'
 
 function Home() {
 	const navigate = useNavigate()
-	const { user } = useContext(UserContext)
-
-	if (!user) {
-		return <Loading />
-	}
 
 	return (
 		<div className='layout'>
-			<Navbar user={user} />
 			<div className='body'>
 				<div className='content'>
 					<h1>PINGAME</h1>

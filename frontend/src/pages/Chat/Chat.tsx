@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { fetchUser } from '../../utils/utils'
-import { Loading, Navbar } from '../../components/components'
+import { Loading } from '../../components/components'
 import { BsSearch, BsFillSendFill } from 'react-icons/bs'
 import { GrMoreVertical } from "react-icons/gr";
 import io from 'socket.io-client'
@@ -11,19 +10,6 @@ function Chat () {
 	const [user, setUser] = useState<any>(undefined)
 	const [focus, setFocus] = useState(0)
 	const socket = io("http://localhost:3000")
-
-	useEffect(() => {
-		const getUser = async () => {
-			const data = await fetchUser()
-			setUser(data)
-		}
-		getUser()
-
-		socket.emit('message', 'connnected')
-		return () => {
-			socket.disconnect()
-		}
-	}, [])
 
 	const test = () => {
 		socket.emit('message', "hello from front")
@@ -36,7 +22,6 @@ function Chat () {
 	} else if (user) {
 		return (
 			<div className="layout">
-				<Navbar user={user} />
 				<div className='chat'>
 					<div className='channels'>
 						<ul className='bar'>

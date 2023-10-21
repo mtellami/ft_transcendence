@@ -1,12 +1,12 @@
-import { ReactNode, createContext, useState } from "react";
-import { User } from "../interfaces/User";
+import { ReactNode, createContext, useState } from "react"
+import { User } from "../interfaces/User"
 
-type Context = {
-	user: User | null;
-	setUser: (user: User | null) => void;
+type UserContextType = {
+	user: User | null
+	setUser: (user: User | null) => void
 }
 
-export const UserContext = createContext<Context>({
+export const UserContext = createContext<UserContextType>({
 	user: null,
 	setUser: () => {}
 })

@@ -3,22 +3,37 @@ import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { UserContext } from '../context/UserContext'
+import ENV from '../utils/env'
+
+const login = async (code: string) => {
+	const navigate = useNavigate()
+	try {
+		const response = await axios.post(`${ENV.BACKEND_URL}/auth`, {
+			data: { 'code': code }
+		})
+		if (response.status >= 200 && response.status < 300) {
+			Cookies.set(ENV.ACCESS_TOKEN, response.data)
+			navigate('/')
+		} else {
+			throw new Error
+		}
+	} catch (error) {
+		navigate('/login')
+	}
+}
 
 const useAuth = () => {
 	const [auth, setAuth] = useState<undefined | boolean>(undefined)
-	const navigate = useNavigate()
 	const { setUser } = useContext(UserContext)
 
 	useEffect(() => {
-		const authenticate = async () => {
+		(async () => {
 			try {
-				const token = Cookies.get(`${import.meta.env.VITE_ACCESS_TOKEN}`)
+				const token = Cookies.get(ENV.ACCESS_TOKEN)
 				if (token === undefined) {
 					throw new Error
 				}
-				const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth`, {
-					headers: { 'Authorization': `Bearer ${token}` },
-				})
+				const response = await axios.get(`${ENV.BACKEND_URL}/auth`)
 				if (response.status >= 200 && response.status < 300) {
 					setAuth(true)
 					setUser(response.data)
@@ -29,31 +44,10 @@ const useAuth = () => {
 				setAuth(false)
 				setUser(null)
 			}
-		}
-
-		authenticate()
+		})()
 	}, [])
 
-	const login = async (code: string) => {
-		try {
-			const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/login?code=${code}`)
-			if (response.status >= 200 && response.status < 300) {
-				Cookies.set(`${import.meta.env.VITE_ACCESS_TOKEN}`, response.data)
-				navigate('/')
-			} else {
-				throw new Error
-			}
-		} catch (error) {
-			navigate('/login')
-		}
-	}
-
-	const logout = () => {
-		Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN);
-		navigate('/login')
-	}
-
-	return { auth, login, logout }
+	return { auth, login }
 }
 
 export default useAuth

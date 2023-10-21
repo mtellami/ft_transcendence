@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
-import useAuth from '../../hooks/useAuth';
-import './Login.css'
+import { useEffect } from 'react'
+import useAuth from '../../hooks/useAuth'
+import ENV from '../../utils/env'
 
 function Login() {
 	const { login } = useAuth()
 
 	const auth42Api = () => {
-		window.open(`${import.meta.env.VITE_API_URL}?client_id=${import.meta.env.VITE_API_UID}`
-			+ `&redirect_uri=${import.meta.env.VITE_API_REDIRECT_URL}&response_type=code`, '_self');
+		window.open(`${ENV.API_URL}?`
+			+ `client_id=${ENV.API_UID}&`
+			+ `redirect_uri=${ENV.API_CALLBACK_URL}&`
+			+ `response_type=code`, '_self')
 	}
 	
 	useEffect(() => {
@@ -19,11 +21,11 @@ function Login() {
 	}, [])
 
   return (
-    <div className='layout login'>
-			<div className='popup'>
-				<p>Welcome to PonGame</p>
+    <div className='layout flex justify-center items-center'>
+			<div className=''>
+				<p className='text-red-600'>Welcome to PonGame</p>
 				<button onClick={auth42Api}>
-					<img src='src/assets/intra.png' alt='42-icon' />
+					{/* <img src='src/assets/intra.png' alt='42-icon' /> */}
 					<span>Login with intranet</span>
 				</button>
 			</div>

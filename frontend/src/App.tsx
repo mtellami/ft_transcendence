@@ -1,14 +1,15 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import Login from './pages/Login/Login'
-import Home from './pages/Home/Home'
-import NotFound from './pages/NotFound/NotFound'
-import Game from './pages/Game/Game'
-import Chat from './pages/Chat/Chat'
-import Profile from './pages/Profile/Profile'
-import Setting from './pages/Setting/Setting'
-import Public from './components/Routes/Public'
-import Private from './components/Routes/Private'
+import { Public, Private } from './components/components'
+import {
+	Login,
+	Game,
+	Chat,
+	Setting,
+	Profile,
+	Home,
+	NotFound
+} from './pages/pages'
 
 function App() {
 	return (

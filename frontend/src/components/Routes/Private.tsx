@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
-import { Loading } from "../components"
+import { Loading, Navbar } from "../components"
 
 const Private = () => {
 	const { auth } = useAuth()
@@ -11,7 +11,7 @@ const Private = () => {
 		case false:
 			return <Navigate to='/login' />
 		default:
-			return <Outlet />
+			return <><Navbar /><Outlet /></>
 	}
 }
 
