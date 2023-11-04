@@ -25,7 +25,7 @@ services:
     container_name: frontend
     image: frontend:pong
     build:
-      context: hola
+      context: frontend
       target: production
       args:
         - REACT_APP_FORTY_TWO_API_URI=${FORTY_TWO_API_URI}

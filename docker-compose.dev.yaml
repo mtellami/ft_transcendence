@@ -32,7 +32,7 @@ services:
     container_name: frontend
     image: frontend:pong
     build:
-      context: hola
+      context: frontend
       target: development
       args:
         - NODE_ENV=development
