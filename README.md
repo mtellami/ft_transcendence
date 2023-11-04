@@ -10,7 +10,7 @@
 ## 🔶​ Overview
 ft_transcendence from 42 School is the last project of the common core. The goal is to create a web app to play Pong and socialize with other users.
 ### Usage
-```console
+```zsh
 docker compose up --build
 ```
 
