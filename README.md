@@ -1,4 +1,4 @@
-qq<div align="center">
+<div align="center">
 
 # 🛸​  ​&nbsp; FT_TRANSCENDENCE  ​&nbsp;  🛸​
 <hr>
