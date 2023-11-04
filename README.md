@@ -43,9 +43,25 @@ user profile, search, setting
 /user
 ```
 
-Friendship relations, Request, Block ...
+Friendship: relations, Request, Block ...
 ```console
-Friendship
+/friendship
+```
+
+Chat room services: create, join, leave
+```console
+/chat
+```
+
+Game: live games, game history, wins, loses
+```console
+/game
+```
+
+### Websocket events
+- Direct messages
+```zsh
+'dm_message', 'dm_history', 'dm_join'
 ```
 
 ## 🔷​ Database
