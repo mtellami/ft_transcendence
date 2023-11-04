@@ -1,80 +1,115 @@
-import { Injectable, Req, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from 'src/services/jwt.service';
-import { PrismaService } from 'src/services/prisma.service';
+import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
+import { PrismaService } from "src/common/prisma/prisma.service";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
+import { HttpService } from "@nestjs/axios";
+import { map } from "rxjs/operators";
+import { newJwtUser } from "datatype/jwt.user.dto";
+import { generateRandomNameSuffix } from 'src/common/utils/string-utils';
+import { authenticator } from "otplib";
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private readonly jwtService: JwtService,
-		private readonly prismaService: PrismaService,
-	) {}
+    constructor(private prisma: PrismaService, private jwt: JwtService,
+                private configService: ConfigService, private httpService:  HttpService) {}
 
-	// Get User Access Token (42.AUTH)
-	async accessToken(code: string) {
-		const formData = {
-			"grant_type": 'authorization_code',
-			"client_id": `${process.env.API_UID}`,
-			"client_secret": `${process.env.API_SECRET_KEY}`,
-			"code": `${code}`,
-			"redirect_uri": `${process.env.API_REDIRECT_URL}`,
-		}
-		const response = await fetch('https://api.intra.42.fr/oauth/token', {
-  		method: 'POST',
-  		headers: { 'Content-Type': 'application/json' },
-  		body: JSON.stringify(formData),
-		})
-    if (!response.ok) {
-			throw new UnauthorizedException('Unauthorized')
+    async login(code: string): Promise<any> {
+        if (!code) {
+            throw new BadRequestException('Please Authorize to login');
+        }
+        const { user_data } = await this.getUserDataFrom42api(code);
+
+        const account = await this.prisma.account.findUnique({
+            where: {
+                intraId: user_data.id,
+            },
+            select: {
+                id: true,
+                isTwofaEnabled: true,
+            },
+        });
+        if (account) {
+            const token: string = this.jwt.sign(newJwtUser(account.id, account.isTwofaEnabled));
+            return { token, twofa: account.isTwofaEnabled, signup: false };
+        }
+        
+        const name = await this.generateRandomName(user_data.login);
+        const user = await this.prisma.user.create({
+            data: {
+                name: name,
+                avatar: user_data.image.versions.small,
+                account: {
+                    create: {
+                        intraId: user_data.id,
+												coalition_name: 'Bios',
+                        coalition_image_url: '',
+                        coalition_cover_url: '',
+                        coalition_slug: '',
+                    },
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+        const token: string = this.jwt.sign(newJwtUser(user.id, false));
+        return { token: token, twofa: false, signup: true };
     }
-		const data = await response.json()
-    return data;
-	}
 
-// Get User Information (42.AUTH)
-	async accessAuthUserInfo(accessToken: string) {    
-    const response = await fetch("https://api.intra.42.fr/v2/me", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${accessToken}` }
-    })
-    if (response.ok) {
-      const data = await response.json()
-      return data;
-    } else {
-			throw new UnauthorizedException('Unauthorized')
-		}
-  }
+    async verifyTwofaLogin(userid: string, code: string): Promise<string> {
+        const account = await this.prisma.account.findUnique({
+            where: {
+                id: userid,
+            }
+        });
+        this.verifyTwofaLoginAuthenticator(account.twofaSecret, code);
+        return this.jwt.sign(newJwtUser(userid, false));
+    }
 
-	// login
-	async login(code: string) {
-		const intraToken = await this.accessToken(code)
-		const user = await this.accessAuthUserInfo(intraToken.access_token)
-		let authUser = await this.prismaService.findUserById(user.id)
-		if (!authUser) {
-			authUser = await this.prismaService.createUser({
-				intraId: user.id,
-				username: user.login,
-				email: user.email,
-				avatar: user.image.link
-			})
-		}
-		const token = this.jwtService.generateToken({
-			intraId: authUser.intraId,
-		})
-		return {access_token: token}
-	}
+    /* **********************   Private Methods    ******************************** */
+    private async getUserDataFrom42api(code: string): Promise<any> {
+        const client_id = this.configService.get('FORTY_TWO_CLIENT_ID');
+        const client_secret = this.configService.get('FORTY_TWO_CLIENT_SECRET');
+        const host_uri = this.configService.get('HOST_URI');
 
-	// Authenticate logged user 
-	async authenticate(@Req() req: Request) {
-		const token = this.jwtService.extractToken(req)
-		if(!token) {
-				throw new UnauthorizedException('Unauthorized')
-		} 
-		const data = this.jwtService.verifyToken(token)
-		const user = await this.prismaService.findUserById(data.intraId)
-		return {
-			id: user.id,
-			username: user.username,
-			avatar: user.avatar,
-		}
-	}
+        try {
+            const { access_token } = await this.httpService.post('https://api.intra.42.fr/oauth/token', {
+                                client_id,
+                                client_secret,
+                                code,
+                                redirect_uri: `${host_uri}/login`,
+                                grant_type: 'authorization_code',
+            }).pipe(map(response => response.data)).toPromise();
+
+            const user_data = await this.httpService.get('https://api.intra.42.fr/v2/me', {
+                headers: {
+                    'Authorization': `Bearer ${access_token}`,
+                }
+            }).pipe(map(response => response.data)).toPromise();
+
+            return { user_data };
+        } catch {
+            throw new UnauthorizedException('Please authorize to connect api.42.fr for logging.');
+        }
+    }
+
+    private async generateRandomName(login: string): Promise<string> {
+        let name: string;
+    
+        for (let i = 0; i < 3; ++i) {
+            name = login + generateRandomNameSuffix(4 * i);
+            if (await this.prisma.user.findUnique({ where: { name }})) {
+                continue;
+            }
+            return name;
+        }
+        throw new BadRequestException("Can't create user, please try later");
+    }
+
+    private verifyTwofaLoginAuthenticator(secret: string, code: string): void {
+        const isMatch: boolean = authenticator.verify({ token: code, secret });
+        if (!isMatch) {
+            throw new BadRequestException('operation failed: invaid code');
+        }
+    }
 }

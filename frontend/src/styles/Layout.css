@@ -1,8 +1,0 @@
-.layout {
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	background-color: var(--bg);
-	color: var(--color);
-	height: 100vh;
-	width: 100vw;
-	overflow: hidden;
-}
