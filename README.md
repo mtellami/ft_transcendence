@@ -1,4 +1,4 @@
-<div align="center">
+qq<div align="center">
 
 # 🛸​  ​&nbsp; FT_TRANSCENDENCE  ​&nbsp;  🛸​
 <hr>
@@ -24,11 +24,16 @@ docker compose up --build
 ## 🔷​ Frontend
 ### Pages
 - Login
-- Chat
-- Game
-- Search
-- Setting
+<img src="https://github.com/mtellami/ft_transcendence/blob/master/preview/login.png" />
+
 - Profile
+<img src="https://github.com/mtellami/ft_transcendence/blob/master/preview/profile.png" />
+
+- Chat
+<img src="https://github.com/mtellami/ft_transcendence/blob/master/preview/chat.png" />
+
+- Game
+<img src="https://github.com/mtellami/ft_transcendence/blob/master/preview/game.png" />
 
 ## 🔷​ Backend
 The server is responsible for providing necessary data (CRUD from the database ) on different endpoints and handles the game matchmaking system, broadcast messages on chat rooms and DM, live game coordinates, and more ...
