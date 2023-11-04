@@ -14,7 +14,7 @@ ft_transcendence from 42 School is the last project of the common core. The goal
 docker compose up --build
 ```
 
-## 🔶​ Tech Stack
+## 🔶​ Tech-stack
 ### Frontemd
 <img src="https://skillicons.dev/icons?i=tailwind" /> &nbsp; <img src="https://skillicons.dev/icons?i=ts" /> &nbsp; <img src="https://skillicons.dev/icons?i=react" />
 
@@ -31,6 +31,7 @@ docker compose up --build
 - Profile
 
 ## 🔷​ Backend
+The server is responsible for providing necessary data (CRUD from the database ) on different endpoints and handles the game matchmaking system, broadcast messages on chat rooms and DM, live game coordinates, and more ...
 
 ### Controllers
 Login and authentication
