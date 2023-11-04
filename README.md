@@ -64,6 +64,16 @@ Game: live games, game history, wins, loses
 'dm_message', 'dm_history', 'dm_join'
 ```
 
+- Chat
+```zsh
+'chat_message', 'chat_history', 'chat_join'
+```
+
+- Game
+```zsh
+'join_game', 'invite_game', 'game_coordinates', 'find_peer' ...
+```
+
 ## 🔷​ Database
 ### Postgresql - Prisma Schema
 ```prisma
